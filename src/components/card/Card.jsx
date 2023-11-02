@@ -2,9 +2,10 @@
 import style from './Card.module.css';
 import './Card.css';
 import { useState, useRef } from 'react';
+import Form from 'react-bootstrap/Form';
 
 function Card(props) { // objeto const persona = { nombre: "pedro" }   persona.edad  = undefined
-    console.log("me imprimi", props.isbn);
+    console.log("me imprimi", props.descripcion);
 
     // addEventListener("evento a escuchar", function)
 // 
@@ -27,18 +28,30 @@ function Card(props) { // objeto const persona = { nombre: "pedro" }   persona.e
 
     return (   // !   true false
             <section style={{fontSize: "40px"}} className={`${style.container} ${props.descuento !== undefined && props.descuento ? style.descuento : style.normal}`}>
+                <div className={style['container-data']}>
+                    {/*<p className='image'>${props.image}</p>*/}
+                    <p className={style['nombre']}>{props.nombre}</p>
+                    <p className={style['description']}>{props.description}</p>
+                    <p className={style['precio']}>${props.precio}</p>
+                    <p className={style['id']}>{props.id}</p>
+                    <Form.Label htmlFor="inputNombre">Nombre de tu peludito</Form.Label>
+                    <Form.Control
+                    id="inputNombre"
+                    />
+                    <Form.Text id="passwordHelpBlock" muted>
+                    Escribe el nombre de tu peludito
+                    </Form.Text>
+                    <p>Unidades a comprar: {contador2.current}</p>
+                </div>
                 <div className={style["container-image"]}>
                     <img ref={imagen} src={props.src} alt={props.alt} />
-                </div>
-                <div className={style['container-data']}>
-                    <p className={style['nombre']}>{props.nombre}</p>
-                    <p className={style['nombre']}>{props.isbn}</p>
-                    <p className={style['price']}>${props.precio}</p>
-                    <p>Unidades a comprar: {contador2.current}</p>
+                    {/*<img ref={imagen} src={image} alt={props.alt} />*/}
                 </div>
                 <div>
                     {/* <button onClick={() => handleClickButton(props.nombre)}>Agregar</button> */}
                     <button onClick={() => handleClickButton(props.nombre)}>Agregar</button>
+                </div>
+                <div className="enterName" >
                 </div>
             </section>
     )
