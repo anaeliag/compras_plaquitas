@@ -8,3 +8,22 @@
 .App * {
   justify-self: center;
 }
+
+.agregacarrito {
+  width: 50;
+  height: 50;
+  position: absolute;
+  right: -150px;
+  bottom: 925px;
+}
+
+.opt-cart {
+  /*display: inline-block;
+  height: 100%;
+  padding-left: 20px;*/
+  width: 50;
+  height: 50;
+  position: absolute;
+  right: 40px;
+  bottom: 925px;
+}

@@ -1,5 +1,6 @@
 import './App.css';
 import Card from "./components/card/Card";
+import { barrita } from "./components/barrita/barrita"
 import { Barra, ContainerOption, Option } from "./components/barra/Barra"
 import { Fragment, useRef, useState } from "react";
 import placas from "./data/placas.json";
@@ -9,12 +10,15 @@ import redonda from './data/images/images/plaquita_redonda.png';
 import patita from './data/images/images/plaquita_patita.png';
 import corazon from './data/images/images/plaquitas_corazon.png';
 import huesito from './data/images/images/plaquitas_huesito.png';
+import cart from './data/images/images/shopping-cart-icon-vector.jpg'
+import Container from 'react-bootstrap/Container';
+import Navbar from 'react-bootstrap/Navbar';
 
 function App() {
 
-  console.log("me imprimo");
+  /*console.log("me imprimo");
 
-  console.log(`$-${placas[4].price}`)
+  console.log(`$-${placas[4].price}`)*/
 
   const [plaquitas] = useState([...placas]);
   
@@ -29,18 +33,28 @@ function App() {
   const agrega = () => {
     setCarrito([...carrito, {}])
     //carrito.current = [...carrito.current, {}];
+    alert(carrito)
     console.log("carrito", carrito);
+
   }
 
   const imprime = () => setTextoActualizado(texto.current.value)
 
   return (
     <section>
-      <div>
-        <p> {textoActualizado} </p>
+      <barrita>
+        {/*<p> {textoActualizado} </p>
         <input ref={texto} type='text' />
-        <button onClick={imprime}>Actualizar</button>
-      </div>
+  <button onClick={imprime}>Actualizar</button>*/}
+      <Container>
+      <Navbar expand="lg" className='ms-auto'>
+        <Container>
+          <Navbar.Brand href="#"></Navbar.Brand>
+        </Container>
+        <img weight="50px" height="50px" src={cart} class="opt-cart" alt="cart"/>
+      </Navbar>
+    </Container>
+    </barrita>
       <main className="App">
            {/* <Card src={placas.image} alt={`Producto-${placas.name}`} isbn={placas.isbn} precio={placas.price} /> */}
            <Card nombre={placas[0].name} src={corazon} description={placas[0].description} precio={`${placas[0].price}`} id={`Sku: ${placas[0].id}`} />
@@ -48,8 +62,11 @@ function App() {
            <Card nombre={placas[2].name} src={huesito} description={placas[2].description} precio={`${placas[2].price}`} id={`Sku: ${placas[2].id}`} />
            <Card nombre={placas[3].name} src={redonda} description={placas[3].description} precio={`${placas[3].price}`} id={`Sku: ${placas[3].id}`} />
            <Card nombre={placas[4].name} src={rectangular} description={placas[4].description} precio={`${placas[4].price}`} id={`Sku: ${placas[4].id}`} />
-        <button onClick={agrega}>Agregar</button>
+        {/*<button className="agregacarrito" onClick={agrega}>Agregar al carrito de compras</button>*/}
     </main>
+    <div>
+    <button className="agregacarrito" onClick={agrega}>Agregar al carrito de compras</button>
+    </div>
     </section>
   );
 }
