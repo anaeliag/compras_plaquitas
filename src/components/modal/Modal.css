@@ -1,0 +1,12 @@
+.container-modal {
+    position: absolute;
+    background-color: gray;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    top: 30%;
+    left: 30%;
+    padding: 16px;
+  }

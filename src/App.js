@@ -1,8 +1,8 @@
 import './App.css';
-import Card from "./components/card/Card";
+import Card from "./components/card/Card.jsx";
 import { barrita } from "./components/barrita/barrita"
 import { Barra, ContainerOption, Option } from "./components/barra/Barra"
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useRef, useState, useEffect } from "react";
 import placas from "./data/placas.json";
 import descuentos from "./data/descuentos.json";
 import rectangular from './data/images/images/plaquita_rectangular.png';
@@ -13,12 +13,32 @@ import huesito from './data/images/images/plaquitas_huesito.png';
 import cart from './data/images/images/shopping-cart-icon-vector.jpg'
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
+//import { nombrepeludo,colorplaca,telefonodueno } from './components/card/Card.jsx'; 
+import { placa_array, placasnew } from './components/card/Card.jsx';
+import * as my_card from './components/card/Card.jsx';
+import Modal from './components/modal/Modal';
+import newallplaquitas from './components/modal/Modal';
+//import Carrito from './components/carrito/carrito.js';
 
 function App() {
 
   /*console.log("me imprimo");
 
   console.log(`$-${placas[4].price}`)*/
+
+  /*const [compras,setCompras] = useState(0);
+  const carritodecompras = (event) => {
+           event.preventDefault();
+     
+           //var { name, telephone, color } = document.forms[0];
+           nombrepeludo = nombredepeluditoRef.current.value;
+           colorplaca = colorRef.current.value;
+           telefonodueno = numerodetelefonoRef.current.value;
+           const userProduct = [nombrepeludo, colorplaca, telefonodueno]
+           setCompras([...userProduct])
+        };*/
+
+  const [ visibleModal, setVisibleModal ] = useState(false);
 
   const [plaquitas] = useState([...placas]);
   
@@ -30,12 +50,31 @@ function App() {
 
   const descuento = (id) => todosDescuentos.includes(id)
 
-  const agrega = () => {
+  const agrega = (my_card) => {
     setCarrito([...carrito, {}])
     //carrito.current = [...carrito.current, {}];
     alert(carrito)
     console.log("carrito", carrito);
+  }
 
+  //let peludito = null;
+  //let colordeplaca = null;
+  //let telefono = null;
+  const mostrar = (my_card) => {
+    //alert(my_card.nombrepeludo,my_card.telefonodueno,my_card.colorplaca); //esto si es
+    //alert(my_card.nombrepeludo);
+    //const myRefValue = Card.numerodetelefonoRef.current
+    //console.log(myRefValue);
+    //console.log();
+    //peludito = my_card.nombrepeludo
+    //colordeplaca = my_card.colorplaca
+    //telefono = my_card.telefonodueno
+    console.log(placa_array);
+    // console.log(placasnew);
+    // let allplaquitas = newallplaquitas.concat(newallplaquitas);
+    // console.log(newallplaquitas);
+    //alert("Su pedido es: "+placa_array)
+    //console.log(my_card.telefonodueno);
   }
 
   const imprime = () => setTextoActualizado(texto.current.value)
@@ -65,7 +104,10 @@ function App() {
         {/*<button className="agregacarrito" onClick={agrega}>Agregar al carrito de compras</button>*/}
     </main>
     <div>
-    <button className="agregacarrito" onClick={agrega}>Agregar al carrito de compras</button>
+    {/*<button className="agregacarrito" onClick={agrega}>Mostrar carrito de compras</button>*/}
+    {/*<button className="mostrarcarrito" onClick={mostrar}>Mostrar carrito de compras</button>*/}
+    {<button className="mostrarcarrito" onClick={mostrar}>Mostrar carrito de compras</button>}
+    { visibleModal && <Modal descripcion="Login Exitoso" texto="Aceptar" /> }
     </div>
     </section>
   );

@@ -1,48 +1,120 @@
 //import './Card.css';
 import style from './Card.module.css';
 import './Card.css';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import * as ReactDOM from 'react-dom';
 import * as React from 'react';
-// import React from 'react';
+/*import { Button } from 'bootstrap';*/
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+let newallplaquitas = [];
+let i = null;
+let id = null;
+let idvar = null;
+let nombrepeludo = null;
+let colorplaca = null;
+let telefonodueno = null;
+let precio_plaquita = null;
+let tipo_plaquita = null
+//let placa_array=[{nombrepeludo,colorplaca,telefonodueno,precio_plaquita,tipo_plaquita,id}];
+let placa_array=[];
+//let index=0
+
+let placasnew = [];
 
 function Card(props) { // objeto const persona = { nombre: "pedro" }   persona.edad  = undefined
-    console.log("me imprimi", props.descripcion);
+    //console.log("me imprimi", props.nombre);
 
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => {
+        setShow(true);
+    }
     // addEventListener("evento a escuchar", function)
 // 
     //const [ conDescuento, setConDescuento ] = useState(props.descuento ? "green" : "beige");
     const [contador, setContador] = useState(0);
+    let varcontid = useRef(0); 
     let contador2 = useRef(0); // { current: 0 }
     let imagen = useRef(null);
     let inputRef = useRef(null);
-    const emailRef = React.useRef();
-    const passwordRef = React.useRef();
+    //const mostrar = () => {
+    const nombredepeluditoRef = useRef(null);
+    const numerodetelefonoRef = useRef(null);
+    const colorRef = useRef(null);
+    const [modalShow, setModalShow] = useState(false);
 
+    useEffect (() => {
+        let nameElement = nombredepeluditoRef.current;
+        let numberElement = numerodetelefonoRef.current;
+        let colorElement = colorRef.current;
+        console.log(nameElement,numberElement,colorElement); // logs <div>I'm an element</div>
+      }, []);//}
     const handleSubmit = (event) => {
-        event.preventDefault();
+        //event.preventDefault();
 
-        const email = emailRef.current.value
-        console.log(emailRef.current.value);
-        const password = passwordRef.current.value
-    
-        alert(email + ' ' + password);
+        // const nombrepeludo = nombredepeluditoRef.current.value
+        //nombrepeludo = nombredepeluditoRef.current.value
+        idvar = placa_array.id++;
+
+        nombrepeludo = nombredepeluditoRef.current.value
+        colorplaca = colorRef.current.value
+        telefonodueno = numerodetelefonoRef.current.value
+        precio_plaquita = props.precio
+        tipo_plaquita = props.nombre
+
+        placa_array = [...placa_array, {nombrepeludo,colorplaca,telefonodueno,precio_plaquita,tipo_plaquita}];
+
+        // placa_array.nombrepeludo = nombredepeluditoRef.current.value
+        // //colorplaca = colorRef.current.value
+        // placa_array.colorplaca = colorRef.current.value
+        // //telefonodueno = numerodetelefonoRef.current.value
+        // placa_array.telefonodueno = numerodetelefonoRef.current.value
+
+        // placa_array.precio_plaquita = props.precio
+
+        // placa_array.tipo_plaquita = props.nombre
+
+        // console.log(nombrepeludo,telefonodueno,colorplaca);
+        //event.target.reset(); //add this line to remove data off your form
     }
-    const handleClickButton = (nombreProducto) => {
-    // const handleClickButton = (evt) => {
+
+    const initialState = [{id: idvar, nombrepeludo: 'sparky', colorplaca: 'Rosa', telefonodueno: '33-21-54-33-55'}];
+    const [placasnew, setPlacasnew] = useState([initialState]);
+
+    const handleChange = (event) => {
+
+        console.log('idvar', idvar)
+        console.log('placa_array.id', placa_array.id)
+        console.log('placa_array', placa_array)
+        //if (placa_array.id[varcontid] != 0){
+          //  let placa_array_all = placa_array.filter(ids => ids!=id)
+        //} else {
+        //placa_array.push(nombrepeludo,colorplaca,telefonodueno,precio_plaquita,tipo_plaquita,id);
+        //}
+    // 👇️ push to the end of the state array
+        newallplaquitas = setPlacasnew(current => [...current, {id: placa_array.id, nombrepeludo: nombredepeluditoRef, telefonodueno: numerodetelefonoRef, colorplaca: colorRef}]);
+        //let allplaquitas = newallplaquitas.concat(newallplaquitas);
+        // 👇️ push an object to the end of the state array
+        //setPlacasnew.concat({id: placa_array.id, nombrepeludo: nombredepeluditoRef, telefonodueno: numerodetelefonoRef, colorplaca: colorRef});
+        // 👇️ push an object to the end of the state array
+        //setEmployees(current => [...current, {id: 3, name: 'Carl'}]);
+    }
+
+    const handleClickButton = (nombreProducto,event) => {
+        //const handleClickButton = (evt) => {
         //alert(`Esta a punto de agregar el siguiente producto: ${nombreProducto}`)
         //setContador(contador+1);
+
         contador2.current++;
         console.log("ref", contador2.current);
-        console.log(inputRef.current.value);
+        //console.log(inputRef.current.value);
         alert('Seleccionaste'+contador2.current)
-        // evt.stopPropagation()
-        // evt.preventDefault()
-        // console.log(evt)
-        // const value_element=document.getElementById('product_card')
-        // // const element=(<p>Unidades a comprar: {contador2.current}</p>);
-        // value_element.render(contador2)
+        console.log(nombrepeludo)
+        //this.setState(prevState => ({ show: !prevState.show }));
     }
 
     // const root = ReactDOM.createRoot(
@@ -50,6 +122,8 @@ function Card(props) { // objeto const persona = { nombre: "pedro" }   persona.e
     // );
     // const element=(<p>Unidades a comprar: {contador2.current}</p>);
     // root.render(element);
+    //index++;
+
     return (   // !   true false
             <section style={{fontSize: "40px"}} className={`${style.container} ${props.descuento !== undefined && props.descuento ? style.descuento : style.normal}`}>
                 <div id="product_card" className={style['container-data']}>
@@ -58,53 +132,110 @@ function Card(props) { // objeto const persona = { nombre: "pedro" }   persona.e
                     <p className={style['description']}>{props.description}</p>
                     <p className={style['precio']}>${props.precio}</p>
                     <p className={style['id']}>{props.id}</p>
-                    <form onSubmit={handleSubmit}>
+                    {/*<form onSubmit={handleSubmit}>
                         <div>
-                            <label htmlFor="email">Email</label>
-                            <input id="email" type="text" ref={emailRef} />
+                            <label htmlFor="nombre" >Nombre (peludito)</label>
+                            <input id="inputNombre" type="text" ref={nombredepeluditoRef} />
+                            <Form.Text id="passwordHelpBlock" muted>
+                                Escribe el nombre de tu peludito.
+                            </Form.Text>
                         </div>
                         <div>
-                            <label htmlFor="password">Password</label>
-                            <input id="password" type="password" ref={passwordRef} />
+                            <p></p>
+                            <label htmlFor="telefono">Telefono (dueño)</label>
+                            <input id="inputTelefono" type="text" ref={numerodetelefonoRef} />
+                            <Form.Text id="passwordHelpBlock" muted>
+                                Escribe el numero que quedara impreso en la plaquita.
+                            </Form.Text>
                         </div>
-                        <button type="submit">Submit</button>
+                        <p></p>
+                        <div>
+                            <label htmlFor="color">Color</label>
+                            <select className="form-control" id="ntype" required ref={colorRef}>
+                                <option value = "">Ninguno</option>
+                                <option value = "rosa">Rosa</option>
+                                <option value = "verde">Verde</option>
+                                <option value = "azul">Azul</option>
+                                <option value = "amarillo">Amarillo</option>
+                            </select>
+                        </div>
+                        <p></p>
                     </form>
-                    <Form.Label htmlFor="inputNombre">Nombre de tu peludito</Form.Label>
-                    <Form.Control
-                    id="inputNombre"
-                    />
-                    <Form.Text id="passwordHelpBlock" muted>
-                    Escribe el nombre de tu peludito
-                    </Form.Text>
-                    <Form.Label htmlFor="inputNombre">Numero de telefono</Form.Label>
-                    <Form.Control
-                    id="inputTelefono"
-                    />
-                    <Form.Text id="passwordHelpBlock" muted>
-                    Escribe tu numero de telefono
-                    </Form.Text>
-                    <Form.Select>
-                    <option>Color</option>
-                    <option>Rosa</option>
-                    <option>Verde</option>
-                    <option>Azul</option>
-                    <option>Amarillo</option>
-                    </Form.Select>
+                    <div>
+                        <button type="submit">Submit</button>
+                    </div>*/}
                     <p>Unidades a comprar: {contador2.current}</p>
                 </div>
                 <div className={style["container-image"]}>
                     <img ref={imagen} src={props.src} alt={props.alt} />
                     {/*<img ref={imagen} src={image} alt={props.alt} />*/}
                 </div>
-                <div>
-                    {/* <button onClick={() => handleClickButton(props.nombre)}>Agregar</button> */}
+
+                <>
+                {/*<button id="modalitos" className="flex flex-wrap gap-4" variant="primary" onClick={handleShow}>*/}
+                <Button variant="primary" onClick={handleShow}>
+                    Elegir
+                </Button>
+                    <Modal className="my-modal" show={show} onHide={handleClose} style={{ overlay: { background: 'plum', fontSize: "40px"} }}>
+                    <Modal.Header closeButton>
+                    <Modal.Title>Modal heading</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Woohoo, you're reading this text in a modal!
+                    <div>
+                        <label htmlFor="nombre" >Nombre (peludito)</label>
+                        <input id="inputNombre" type="text" ref={nombredepeluditoRef} />
+                            <Form.Text id="passwordHelpBlock" muted>
+                                Escribe el nombre de tu peludito.
+                            </Form.Text>
+                    </div>
+                    <div>
+                    <p></p>
+                        <label htmlFor="telefono">Telefono (dueño)</label>
+                        <input id="inputTelefono" type="text" ref={numerodetelefonoRef} />
+                            <Form.Text id="passwordHelpBlock" muted>
+                                Escribe el numero que quedara impreso en la plaquita.
+                            </Form.Text>
+                    </div>
+                    <p></p>
+                    <div>
+                        <label htmlFor="color">Color</label>
+                        <select className="form-control" id="ntype" required ref={colorRef}>
+                            <option value = "">Ninguno</option>
+                            <option value = "rosa">Rosa</option>
+                            <option value = "verde">Verde</option>
+                            <option value = "azul">Azul</option>
+                            <option value = "amarillo">Amarillo</option>
+                        </select>
+                    </div>
+                    </Modal.Body>
+                    <Modal.Footer>
+                    <button variant="secondary" onClick={handleClose}>
+                        Close
+                    </button>
+                    {/*<button variant="primary" onClick={handleClose,handleSubmit}></button>*/}
+                    <button variant="primary" onClick={() => {
+                        handleClose();handleSubmit();handleClickButton(props.nombre);handleChange(placa_array);
+                    }}>
+                        Save Changes
+                    </button>
+                    </Modal.Footer>
+                </Modal>
+                </>
+                {/*<div>
                     <button onClick={() => handleClickButton(props.nombre)}>Añadir</button>
-                </div>
+                </div>*/}
                 <div className="enterName" >
                 </div>
             </section>
+            
     )
 }
 export default Card;
+export {nombrepeludo};
+export {colorplaca};
+export {telefonodueno};
+export {placa_array};
+export {placasnew};
+export {newallplaquitas};
 
 
