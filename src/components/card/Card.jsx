@@ -47,26 +47,26 @@ function Card(props) { // objeto const persona = { nombre: "pedro" }   persona.e
     const colorRef = useRef(null);
     const [modalShow, setModalShow] = useState(false);
 
-    useEffect (() => {
+   /*useEffect (() => {
         let nameElement = nombredepeluditoRef.current;
         let numberElement = numerodetelefonoRef.current;
         let colorElement = colorRef.current;
         console.log(nameElement,numberElement,colorElement); // logs <div>I'm an element</div>
-      }, []);//}
+      }, []);//}*/
+
     const handleSubmit = (event) => {
         //event.preventDefault();
 
         // const nombrepeludo = nombredepeluditoRef.current.value
         //nombrepeludo = nombredepeluditoRef.current.value
-        idvar = placa_array.id++;
-
+        id = id + 1;
         nombrepeludo = nombredepeluditoRef.current.value
         colorplaca = colorRef.current.value
         telefonodueno = numerodetelefonoRef.current.value
         precio_plaquita = props.precio
         tipo_plaquita = props.nombre
 
-        placa_array = [...placa_array, {nombrepeludo,colorplaca,telefonodueno,precio_plaquita,tipo_plaquita}];
+        placa_array = [...placa_array, {id,nombrepeludo,colorplaca,telefonodueno,precio_plaquita,tipo_plaquita}];
 
         // placa_array.nombrepeludo = nombredepeluditoRef.current.value
         // //colorplaca = colorRef.current.value
@@ -80,28 +80,6 @@ function Card(props) { // objeto const persona = { nombre: "pedro" }   persona.e
 
         // console.log(nombrepeludo,telefonodueno,colorplaca);
         //event.target.reset(); //add this line to remove data off your form
-    }
-
-    const initialState = [{id: idvar, nombrepeludo: 'sparky', colorplaca: 'Rosa', telefonodueno: '33-21-54-33-55'}];
-    const [placasnew, setPlacasnew] = useState([initialState]);
-
-    const handleChange = (event) => {
-
-        console.log('idvar', idvar)
-        console.log('placa_array.id', placa_array.id)
-        console.log('placa_array', placa_array)
-        //if (placa_array.id[varcontid] != 0){
-          //  let placa_array_all = placa_array.filter(ids => ids!=id)
-        //} else {
-        //placa_array.push(nombrepeludo,colorplaca,telefonodueno,precio_plaquita,tipo_plaquita,id);
-        //}
-    // 👇️ push to the end of the state array
-        newallplaquitas = setPlacasnew(current => [...current, {id: placa_array.id, nombrepeludo: nombredepeluditoRef, telefonodueno: numerodetelefonoRef, colorplaca: colorRef}]);
-        //let allplaquitas = newallplaquitas.concat(newallplaquitas);
-        // 👇️ push an object to the end of the state array
-        //setPlacasnew.concat({id: placa_array.id, nombrepeludo: nombredepeluditoRef, telefonodueno: numerodetelefonoRef, colorplaca: colorRef});
-        // 👇️ push an object to the end of the state array
-        //setEmployees(current => [...current, {id: 3, name: 'Carl'}]);
     }
 
     const handleClickButton = (nombreProducto,event) => {
@@ -178,9 +156,9 @@ function Card(props) { // objeto const persona = { nombre: "pedro" }   persona.e
                 </Button>
                     <Modal className="my-modal" show={show} onHide={handleClose} style={{ overlay: { background: 'plum', fontSize: "40px"} }}>
                     <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
+                    <Modal.Title>Elige tu plaquita!</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>Woohoo, you're reading this text in a modal!
+                    <Modal.Body>
                     <div>
                         <label htmlFor="nombre" >Nombre (peludito)</label>
                         <input id="inputNombre" type="text" ref={nombredepeluditoRef} />
@@ -214,7 +192,7 @@ function Card(props) { // objeto const persona = { nombre: "pedro" }   persona.e
                     </button>
                     {/*<button variant="primary" onClick={handleClose,handleSubmit}></button>*/}
                     <button variant="primary" onClick={() => {
-                        handleClose();handleSubmit();handleClickButton(props.nombre);handleChange(placa_array);
+                        handleClose();handleSubmit();handleClickButton(props.nombre);
                     }}>
                         Save Changes
                     </button>

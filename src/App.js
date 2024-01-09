@@ -17,10 +17,19 @@ import Navbar from 'react-bootstrap/Navbar';
 import { placa_array, placasnew } from './components/card/Card.jsx';
 import * as my_card from './components/card/Card.jsx';
 import Modal from './components/modal/Modal';
+import Button from 'react-bootstrap/Button';
 import newallplaquitas from './components/modal/Modal';
+import React from 'react';
 //import Carrito from './components/carrito/carrito.js';
 
 function App() {
+
+  //esto es lo que funciona
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+      setOpen(true);
+  };
 
   /*console.log("me imprimo");
 
@@ -38,6 +47,10 @@ function App() {
            setCompras([...userProduct])
         };*/
 
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const [ visibleModal, setVisibleModal ] = useState(false);
 
   const [plaquitas] = useState([...placas]);
@@ -56,7 +69,6 @@ function App() {
     alert(carrito)
     console.log("carrito", carrito);
   }
-
   //let peludito = null;
   //let colordeplaca = null;
   //let telefono = null;
@@ -105,9 +117,8 @@ function App() {
     </main>
     <div>
     {/*<button className="agregacarrito" onClick={agrega}>Mostrar carrito de compras</button>*/}
-    {/*<button className="mostrarcarrito" onClick={mostrar}>Mostrar carrito de compras</button>*/}
-    {<button className="mostrarcarrito" onClick={mostrar}>Mostrar carrito de compras</button>}
-    { visibleModal && <Modal descripcion="Login Exitoso" texto="Aceptar" /> }
+    <button className="mostrarcarrito" onClick={mostrar}>Mostrar carrito de compras</button>
+    {/*visibleModal && <Modal descripcion="Login Exitoso" texto="Aceptar" >*/}
     </div>
     </section>
   );
